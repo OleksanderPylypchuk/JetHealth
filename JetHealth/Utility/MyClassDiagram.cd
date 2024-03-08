@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="JetHealth.Models.Treatment">
+    <Position X="4.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAIgAAAAAQAEAAAAAAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>Models\Treatment.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="TreatmentDescription" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="TreatmentImages" />
+      <Property Name="TreatmentProcedures" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="JetHealth.Models.TImage">
+    <Position X="4.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAICAAAAAAAAAAAAAABAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\TImage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JetHealth.Models.TProcedure">
+    <Position X="6.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAKCAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\TProcedure.cs</FileName>
+      <NewMemberFileName>Models\TDescription.cs</NewMemberFileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JetHealth.Models.TDescription">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAICAAAAAAAgAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\TDescription.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JetHealth.Models.Abstract.Message" Collapsed="true">
+    <Position X="1.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Abstract\Message.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JetHealth.Models.Request">
+    <Position X="0.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAQAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Request.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JetHealth.Models.Review">
+    <Position X="2.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Review.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JetHealth.Data.Repository.Repository&lt;T&gt;">
+    <Position X="9.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAgAAAAAAAAAAAAAAAIAEAAAAAAAAAAAAAIAAAAIA=</HashCode>
+      <FileName>Data\Repository\Repository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="JetHealth.Models.ApplicationUser">
+    <Position X="1.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Models\ApplicationUser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="JetHealth.Data.Repository.IRepository.IRepository&lt;T&gt;">
+    <Position X="9.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAIAAAAIA=</HashCode>
+      <FileName>Data\Repository\IRepository\IRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
