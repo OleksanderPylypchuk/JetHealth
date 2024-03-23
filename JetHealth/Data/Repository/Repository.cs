@@ -15,24 +15,48 @@ namespace JetHealth.Data.Repository
             _dbSet = _db.Set<T>();
         }
 
-        public Task AddAsync(T entity)
+        public async Task AddAsync(T entity)
         {
-            throw new NotImplementedException();
+            await _dbSet.AddAsync(entity);
         }
 
-        public Task DeleteAsync(T entity)
+        public async Task DeleteAsync(T entity)
         {
-            throw new NotImplementedException();
+            _dbSet.Remove(entity);
         }
 
-        public Task<IEnumerable<T>> GetAllAsync(Expression<Func<T, bool>>? filter = null, string? includeProperties = null)
+        public async Task<IEnumerable<T>> GetAllAsync(Expression<Func<T, bool>>? filter = null, string? includeProperties = null)
         {
-            throw new NotImplementedException();
+            IQueryable<T> query = _dbSet;
+            if(filter != null)
+            {
+                query = query.Where(filter);
+            }
+            if(includeProperties != null)
+            {
+                foreach(var include in  includeProperties.Split(',', StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query=query.Include(include);
+                }
+            }
+            return await query.ToListAsync();
         }
 
-        public Task<T> GetAsync(Expression<Func<T, bool>>? filter = null, string? includeProperties = null)
+        public async Task<T> GetAsync(Expression<Func<T, bool>>? filter = null, string? includeProperties = null)
         {
-            throw new NotImplementedException();
+            IQueryable<T> query = _dbSet;
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+            if (includeProperties != null)
+            {
+                foreach (var include in includeProperties.Split(',', StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(include);
+                }
+            }
+            return await query.FirstOrDefaultAsync();
         }
     }
 }
