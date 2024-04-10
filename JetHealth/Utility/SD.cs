@@ -2,8 +2,8 @@
 {
     public static class SD
     {
-        public static string ROLEAdmin = "Admin";
-        public static string ROLEDoctor = "Doctor";
-        public static string ROLEUser = "User";
+        public const string ROLEAdmin = "Admin";
+        public const string ROLEDoctor = "Doctor";
+        public const string ROLEUser = "User";
     }
 }
