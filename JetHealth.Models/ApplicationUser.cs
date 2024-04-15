@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.IdentityModel.Tokens;
 
 namespace JetHealth.Models
 {
@@ -13,7 +12,7 @@ namespace JetHealth.Models
         private string _lastName;
         [MinLength(1), MaxLength(15)]
         public string FirstName { get { return _firstName; } set {
-                if (value.IsNullOrEmpty() || value.Length > 15)
+                if (string.IsNullOrEmpty(value) || value.Length > 15)
                 {
                     throw new ArgumentException("Value is not acceptable");
                 }
@@ -25,8 +24,8 @@ namespace JetHealth.Models
         {
             get { return _lastName; }
             set
-            {
-                if (value.IsNullOrEmpty() || value.Length > 15)
+                {
+                    if (string.IsNullOrEmpty(value) || value.Length > 15)
                 {
                     throw new ArgumentException("Value is not acceptable");
                 }

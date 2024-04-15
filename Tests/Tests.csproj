@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\JetHealth\JetHealth.csproj" />
+    <ProjectReference Include="..\JetHealth.Models\JetHealth.Models.csproj" />
   </ItemGroup>
 
 </Project>

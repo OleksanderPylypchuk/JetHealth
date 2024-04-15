@@ -1,9 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using JetHealth.Models.Abstract;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.IdentityModel.Tokens;
-
 namespace JetHealth.Models
 {
     public class Request:Message
@@ -18,7 +15,7 @@ namespace JetHealth.Models
             get { return _name; } 
             set
             {
-                if (value.IsNullOrEmpty() || value.Length > 20)
+                if (string.IsNullOrEmpty(value) || value.Length > 20)
                 {
                     throw new ArgumentException("Value is not acceptable");
                 }
@@ -31,7 +28,7 @@ namespace JetHealth.Models
             get { return _phoneNumber; }
             set
             {
-                if (value.IsNullOrEmpty() || value.Length !=10)
+                if (string.IsNullOrEmpty(value) || value.Length !=10)
                 {
                     throw new ArgumentException("Value is not acceptable");
                 }

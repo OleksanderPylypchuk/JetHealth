@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using JetHealth.Models.Abstract;
-using Microsoft.IdentityModel.Tokens;
 
 namespace JetHealth.Models
 {
@@ -17,7 +16,7 @@ namespace JetHealth.Models
             get { return _name; }
             set
             {
-                if (value.IsNullOrEmpty() || value.Length > 20)
+                if (string.IsNullOrEmpty(value) || value.Length > 20)
                 {
                     throw new ArgumentException("Value is not acceptable");
                 }
