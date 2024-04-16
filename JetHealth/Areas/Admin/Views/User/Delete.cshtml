@@ -1,5 +1,33 @@
-﻿ @*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model ApplicationUser
+<h1 class="justify-content-center text-center">Видалення користувача</h1>
+
+<div class="row justify-content-center">
+    <div class="col-md-8 ">
+        <form method="post">
+            <hr />
+            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+            <input asp-for="Id" hidden />
+            <div class="form-floating mb-3">
+                <input asp-for="Email" class="form-control" autocomplete="off" disabled aria-required="true" placeholder="@Model.Email" />
+                <label asp-for="Email">Email</label>
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="FirstName" class="form-control" autocomplete="off" disabled aria-required="true" placeholder="@Model.FirstName" />
+                <label asp-for="FirstName">Ваше ім'я</label>
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="LastName" class="form-control" autocomplete="off" disabled aria-required="true" placeholder="@Model.LastName" />
+                <label asp-for="LastName">Прізвище</label>
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="PhoneNumber" class="form-control" autocomplete="off" disabled aria-required="true" placeholder="@Model.PhoneNumber" />
+                <label asp-for="PhoneNumber">Номер телефону</label>
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            <button type="submit" class="w-100 btn btn-lg btn-primary">Delete</button>
+        </form>
+    </div>
+</div>

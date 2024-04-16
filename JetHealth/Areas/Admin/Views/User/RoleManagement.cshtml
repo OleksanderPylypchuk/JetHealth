@@ -1,5 +1,23 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@model UserVM
+
+<form method="post">
+	<div class="row justify-content-center">
+		<div class="col-6 m-3 bg-gradient">
+			<h4 class="text-center m-3">
+				Change Role
+			</h4>
+			<input asp-for="User.Id" hidden />
+			<div class="mb-3 pb-0 p-3 ">
+				<select asp-for="User.Role" asp-items="@Model.Roles" class=" form-select">
+					<option disabled selected>--Select role--</option>
+				</select>
+				<label asp-for="User.Role" class="ms-2" />
+			</div>
+			<button type="submit" class="w-100 btn btn-lg btn-primary mb-2">Assign Role</button>
+		</div>
+	</div>
+</form>
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
 }

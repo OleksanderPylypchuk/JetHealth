@@ -32,5 +32,7 @@ namespace JetHealth.Models
                 _lastName = value;
             }
         }
-    }
+		[NotMapped]
+		public string Role { get; set; }
+	}
 }
