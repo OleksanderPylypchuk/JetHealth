@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace JetHealth.Models
 {
@@ -20,19 +22,20 @@ namespace JetHealth.Models
                 _id = value;
             }
         }
+        [DisplayName("Опис напряму")]
         public string Description { get; set; }
+        [ForeignKey("Treatment")]
         public int TreatmentId
         {
             get { return _treatmentid; }
             set
             {
-                if (value <= 0)
+                if (value < 0)
                 {
                     throw new ArgumentException("Value is not acceptable");
                 }
                 _treatmentid = value;
             }
         }
-        public Treatment Treatment { get; set; }
     }
 }

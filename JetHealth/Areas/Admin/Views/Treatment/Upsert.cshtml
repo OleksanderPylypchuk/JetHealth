@@ -1,5 +1,49 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model Treatment
+
+<h1 class="text-center text-primary">@(Model.Id == 0 ? "Створити" : "Оновити") напрям лікування</h1>
+
+<form enctype="multipart/form-data" method="post">
+	<div class="row justify-content-center">
+		<div class="col-10">
+			<input asp-for="TreatmentDescriptionId" hidden/>
+			<input asp-for="Id" hidden />
+			<input asp-for="TreatmentProcedures" hidden />
+			<div class="form-floating mb-3">
+				<label asp-for="TreatmentName"></label>
+				<input asp-for="TreatmentName" class="form-control" autocomplete="off" placeholder="" />
+				<span asp-validation-for="TreatmentName" class="text-danger"></span>
+			</div>
+			<div class="form-floating mb-3">
+				<label asp-for="TreatmentDescription.Description">Опис напряму</label>
+				<textarea asp-for="TreatmentDescription.Description" placeholder=""></textarea>
+			</div>
+			<div class="form-floating mb-3">
+				<input type="file" name="files" class="form-control" multiple />
+			</div>
+			<div class="row">
+				<div class="col-6 col-md-3">
+					<button type="submit" class="btn btn-primary form-control">@(Model.Id == 0 ? "Створити" : "Оновити")</button>
+				</div>
+				<div class="col-6 col-md-3">
+					<a asp-controller="Treatment" asp-action="Index" class="btn btn-outline-secondary form-control">
+						Повернутись до списку
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="col-2">
+			@if (Model.TreatmentImages != null)
+			{
+				@foreach (var image in Model.TreatmentImages)
+				{
+					<img src="@image.ImgUrl" width="175"
+						 style="border-radius:5px;border:1px" />
+					<a asp-action="DeleteTImage" asp-route-id="@image.Id" class="btn btn-danger">
+						Delete
+					</a>
+				}
+			}
+		</div>
+	</div>
+
+</form>

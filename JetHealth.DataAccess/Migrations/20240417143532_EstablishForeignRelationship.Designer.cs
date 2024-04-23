@@ -4,6 +4,7 @@ using JetHealth.Data.DBContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JetHealth.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240417143532_EstablishForeignRelationship")]
+    partial class EstablishForeignRelationship
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -89,6 +92,8 @@ namespace JetHealth.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("TreatmentId");
+
                     b.ToTable("TDescriptions");
                 });
 
@@ -121,10 +126,6 @@ namespace JetHealth.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PDescription")
                         .IsRequired()
@@ -385,6 +386,17 @@ namespace JetHealth.Migrations
                         .HasColumnType("nvarchar(15)");
 
                     b.HasDiscriminator().HasValue("ApplicationUser");
+                });
+
+            modelBuilder.Entity("JetHealth.Models.TDescription", b =>
+                {
+                    b.HasOne("JetHealth.Models.Treatment", "Treatment")
+                        .WithMany()
+                        .HasForeignKey("TreatmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Treatment");
                 });
 
             modelBuilder.Entity("JetHealth.Models.TImage", b =>

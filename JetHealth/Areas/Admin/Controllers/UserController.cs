@@ -60,7 +60,7 @@ namespace JetHealth.Areas.Admin.Controllers
 		[HttpPost,ActionName("Delete")]
 		public async Task<IActionResult> DeletePOST(string id)
 		{
-			var user= await _unitOfWork.UserRepository.GetAsync(u=>u.Id == id);
+			var user= await _unitOfWork.UserRepository.GetAsync(u=>u.Id ==id);
 			await _unitOfWork.UserRepository.DeleteAsync(user);
 			_unitOfWork.Save();
 			return RedirectToAction("Index");

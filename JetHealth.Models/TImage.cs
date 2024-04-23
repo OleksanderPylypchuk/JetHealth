@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace JetHealth.Models
 {
@@ -21,6 +22,7 @@ namespace JetHealth.Models
             }
         }
         public string ImgUrl { get; set; }
+        [ForeignKey("Treatment")]
         public int TreatmentId
         {
             get { return _treatmentid; }
@@ -33,6 +35,7 @@ namespace JetHealth.Models
                 _treatmentid = value;
             }
         }
-        public Treatment Treatment { get; set; }
+		[ValidateNever]
+		public Treatment Treatment { get; set; }
     }
 }

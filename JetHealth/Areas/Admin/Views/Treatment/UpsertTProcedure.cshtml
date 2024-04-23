@@ -1,5 +1,31 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model TProcedure
+
+<form enctype="multipart/form-data" method="post">
+	<div class="row justify-content-center">
+		<div class="col-10">
+			<input asp-for="Id" hidden />
+			<div class="form-floating mb-3">
+				<label asp-for="Name"></label>
+				<input asp-for="Name" class="form-control" autocomplete="off" placeholder="" />
+				<span asp-validation-for="Name" class="text-danger"></span>
+			</div>
+			<div class="form-floating mb-3">
+				<label asp-for="PDescription">Опис напряму</label>
+				<textarea asp-for="PDescription" placeholder=""></textarea>
+			</div>
+			<div class="form-floating mb-3 h-25">
+				<select asp-for="TreatmentId" asp-items="@Model.Treatments" class="form-select"><option selected disabled>Оберіть напрям</option></select>
+			</div>
+			<div class="row">
+				<div class="col-6 col-md-3">
+					<button type="submit" class="btn btn-primary form-control">@(Model.Id == 0 ? "Створити" : "Оновити")</button>
+				</div>
+				<div class="col-6 col-md-3">
+					<a asp-controller="Treatment" asp-action="Index" class="btn btn-outline-secondary form-control">
+						Повернутись до списку
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>

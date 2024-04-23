@@ -11,6 +11,12 @@ namespace JetHealth.Data.Repository
         {
             _db = db;
         }
+
+        public Treatment GetLast()
+        {
+            return _db.Treatments.OrderBy(t => t.Id).LastOrDefault();
+        }
+
         public void Update(Treatment treatment)
         {
             _db.Update(treatment);

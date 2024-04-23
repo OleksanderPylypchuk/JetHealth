@@ -1,5 +1,108 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model List<Treatment>
+
+<div class="container">
+	<div class="row pt-4 pb-4">
+		<div class="col-6">
+			<h2 class="text-primary">
+				Список напрямів
+			</h2>
+		</div>
+		<div class="col-6 text-end">
+			<a asp-controller="Treatment" asp-action="Upsert" class="btn btn-primary">
+				<i class="bi bi-screwdriver"></i> Додати новий напрям
+			</a>
+		</div>
+	</div>
+
+
+	<table class="table table-bordered table-striped">
+		<thead>
+			<tr>
+				<th class="text-center bg-primary text-white">
+					Назва напряму
+				</th>
+				<th class="text-center bg-primary text-white">
+					Кількість процедур
+				</th>
+				<th class="text-center bg-primary"></th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var obj in Model.OrderBy(u => u.Id))
+			{
+				<tr>
+					<td>
+						@obj.TreatmentName
+					</td>
+					<td>
+						@obj.TreatmentProcedures.Count()
+					</td>
+					<td>
+						<div class="w-75 btn-group" role="group">
+							<a asp-controller="Treatment" asp-route-id="@obj.Id" asp-action="Upsert" class="btn btn-primary mx-2">
+								<i class="bi bi-pencil-square"></i>Оновити
+							</a>
+							<a asp-controller="Treatment" asp-route-id="@obj.Id" asp-action="Delete" class="btn btn-danger mx-2">
+								<i class="bi bi-trash3"></i>Видалити
+							</a>
+						</div>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+
+	<div class="row pt-4 pb-4">
+		<div class="col-6">
+			<h2 class="text-primary">
+				Список процедур
+			</h2>
+		</div>
+		<div class="col-6 text-end">
+			<a asp-controller="Treatment" asp-action="UpsertTProcedure" class="btn btn-primary">
+				<i class="bi bi-screwdriver"></i> Додати нову процедуру
+			</a>
+		</div>
+	</div>
+
+
+	<table class="table table-bordered table-striped">
+		<thead>
+			<tr>
+				<th class="text-center bg-primary text-white">
+					Назва процедури
+				</th>
+				<th class="text-center bg-primary text-white">
+					Є частиною напряму
+				</th>
+				<th class="text-center bg-primary"></th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var obj in Model.OrderBy(u => u.Id))
+			{
+				@foreach(var procedure in obj.TreatmentProcedures)
+				{
+					<tr>
+						<td>
+							@procedure.Name
+						</td>
+						<td>
+							@procedure.Treatment.TreatmentName
+						</td>
+						<td>
+							<div class="w-75 btn-group" role="group">
+								<a asp-controller="Treatment" asp-route-id="@procedure.Id" asp-action="UpsertTProcedure" class="btn btn-primary mx-2">
+									<i class="bi bi-pencil-square"></i>Оновити
+								</a>
+								<a asp-controller="Treatment" asp-route-id="@procedure.Id" asp-action="DeleteTProcedure" class="btn btn-danger mx-2">
+									<i class="bi bi-trash3"></i>Видалити
+								</a>
+							</div>
+						</td>
+					</tr>
+				}
+			}
+		</tbody>
+	</table>
+</div>

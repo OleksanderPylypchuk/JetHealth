@@ -13,7 +13,7 @@ namespace JetHealth.Data.Repository
         }
         public void Update(TProcedure entity)
         {
-            throw new NotImplementedException();
+            _db.Procedures.Update(entity);
         }
     }
 }
