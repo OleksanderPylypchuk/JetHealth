@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using JetHealth.Models.Abstract;
 namespace JetHealth.Models
@@ -9,8 +10,8 @@ namespace JetHealth.Models
         private string _name;
         [NotMapped]
         private string _phoneNumber;
-        [MinLength(1),MaxLength(20)]
-        public string Name 
+        [MinLength(1),MaxLength(20),DisplayName("Ваше ім'я")]
+        public override string Name 
         { 
             get { return _name; } 
             set
@@ -22,13 +23,13 @@ namespace JetHealth.Models
                 _name = value;
             }
         }
-        [StringLength(10)]
+        [StringLength(13), DisplayName("Номер телефону у форматі +380..")]
         public string PhoneNumber
         {
             get { return _phoneNumber; }
             set
             {
-                if (string.IsNullOrEmpty(value) || value.Length !=10)
+                if (string.IsNullOrEmpty(value) || value.Length !=13)
                 {
                     throw new ArgumentException("Value is not acceptable");
                 }

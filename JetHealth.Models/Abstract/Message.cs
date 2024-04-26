@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JetHealth.Models.Abstract
@@ -20,6 +21,8 @@ namespace JetHealth.Models.Abstract
                 _id = value;
             }
         }
+        [DisplayName("Коментар")]
         public string? Content { get; set; }
+        public abstract string? Name { get; set; }
     }
 }

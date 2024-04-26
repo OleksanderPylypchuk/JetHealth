@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using JetHealth.Models.Abstract;
 
@@ -10,8 +11,8 @@ namespace JetHealth.Models
         private string _name;
         [NotMapped]
         private byte _rating;
-        [MinLength(1), MaxLength(20)]
-        public string Name
+        [MinLength(1), MaxLength(20), DisplayName("Коментар")]
+        public override string Name
         {
             get { return _name; }
             set

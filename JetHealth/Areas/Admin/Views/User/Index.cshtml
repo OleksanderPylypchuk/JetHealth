@@ -1,17 +1,17 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject UserManager<IdentityUser> _userManager;
 @model List<ApplicationUser>
-
+<partial name="_Notification" />
 <div class="container">
 	<div class="row pt-4 pb-4">
 		<div class="col-6">
 			<h2 class="text-primary">
-				List Of Users
+				Список користувачів
 			</h2>
 		</div>
 		<div class="col-6 text-end">
 			<a asp-area="Identity" asp-page="/Account/Register" class="btn btn-primary">
-				<i class="bi bi-screwdriver"></i>Register a user
+				<i class="bi bi-screwdriver"></i>Зареєструйте користувача
 			</a>
 		</div>
 	</div>
@@ -21,16 +21,16 @@
 		<thead>
 			<tr>
 				<th class="bg-primary text-white text-center">
-					FirstName
+					Ім'я
 				</th>
 				<th class="bg-primary text-white text-center">
-					LastName
+					Прізвище
 				</th>
 				<th class="bg-primary text-white text-center">
-					Role
+					Роль
 				</th>
 				<th class="bg-primary text-white text-center">
-					Email
+					Пошта
 				</th>
 				<th class="bg-primary text-white text-center"></th>
 			</tr>
@@ -54,10 +54,10 @@
 					<td>
 						<div class="w-75 btn-group" role="group">
 							<a asp-controller="User" asp-route-id="@obj.Id" asp-action="RoleManagement" class="btn btn-primary mx-2">
-								<i class="bi bi-pencil-square"></i>Edit
+								<i class="bi bi-pencil-square"></i>Змінити роль
 							</a>
 							<a asp-controller="User" asp-route-id="@obj.Id" asp-action="Delete" class="btn btn-danger mx-2">
-								<i class="bi bi-trash3"></i>Delete
+								<i class="bi bi-trash3"></i>Видалити
 							</a>
 						</div>
 					</td>

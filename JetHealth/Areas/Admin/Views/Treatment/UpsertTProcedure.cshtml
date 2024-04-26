@@ -5,8 +5,8 @@
 		<div class="col-10">
 			<input asp-for="Id" hidden />
 			<div class="form-floating mb-3">
-				<label asp-for="Name"></label>
 				<input asp-for="Name" class="form-control" autocomplete="off" placeholder="" />
+				<label asp-for="Name"></label>
 				<span asp-validation-for="Name" class="text-danger"></span>
 			</div>
 			<div class="form-floating mb-3">
@@ -29,3 +29,15 @@
 		</div>
 	</div>
 </form>
+@section Scripts {
+	@{
+		<partial name="_ValidationScriptsPartial" />
+		<script>
+			tinymce.init({
+				selector: 'textarea',
+				plugins: 'anchor autolink charmap codesample emoticons lists media searchreplace table visualblocks wordcount linkchecker',
+				toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+			});
+		</script>
+	}
+}

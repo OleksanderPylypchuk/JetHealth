@@ -1,8 +1,82 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
-
+﻿@model HomeVM
+<partial name="_Notification" />
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Вітаємо!</h1>
 </div>
+<form method="post">
+	<h2 class="text-center p-3">Форма для подачі заявки</h2>
+	<div class="row p-3">
+		@if (User.Identity.IsAuthenticated)
+		{
+			<input asp-for="request.Name" hidden placeholder="@User.Identity.Name" />
+			<input asp-for="request.PhoneNumber" hidden />
+			<div>
+				<div class="form-floating mb-3">
+					<input asp-for="request.Content" class="form-control" autocomplete="off" />
+					<label asp-for="request.Content"></label>
+					<span asp-validation-for="request.Content" class="text-danger"></span>
+				</div>
+				<div class="col-md-3">
+					<button type="submit" class="btn btn-primary form-control">Надіслати</button>
+				</div>
+			</div>
+		}
+		else
+		{
+			<div class="form-floating mb-3 col-6">
+				<input asp-for="request.Name" class="form-control" autocomplete="off"/>
+				<label asp-for="request.Name"></label>
+				<span asp-validation-for="request.Name" class="text-danger"></span>
+			</div>
+			<div class="form-floating mb-3 col-6">
+				<input asp-for="request.PhoneNumber" class="form-control" autocomplete="off" />
+				<label asp-for="request.PhoneNumber"></label>
+				<span asp-validation-for="request.PhoneNumber" class="text-danger"></span>
+			</div>
+			<div class="form-floating mb-3">
+				<input asp-for="request.Content" class="form-control" autocomplete="off"/>
+				<label asp-for="request.Content"></label>
+				<span asp-validation-for="request.Content" class="text-danger"></span>
+			</div>
+			<div class="col-md-3">
+				<button type="submit" class="btn btn-primary form-control">Надіслати</button>
+			</div>
+		}
+	</div>
+</form>
+<h2 class="text-center p-3">Напрями лікування</h2>
+<div class="row pb-3">
+	@foreach (var obj in Model.Treatments)
+	{
+		<div class="col-lg-3 col-sm-6">
+			<div class="row p-2">
+				<div class="col-12 p-1">
+					<div class="card border-0 p-3 shadow border-top border-5 rounded">
+						@if (obj.TreatmentImages == null || obj.TreatmentImages.Count() == 0)
+						{
+							<img src="https://placehold.co/500x750/png" class="card-img-top rounded" />
+						}
+						else
+						{
+							<img src="@obj.TreatmentImages.FirstOrDefault().ImgUrl" class="card-img-top rounded">
+						}
+						<div class="card-body pb-0">
+							<div class="pl-1">
+								<p class="card-title h5 opacity-75 text-uppercase text-center">@obj.TreatmentName</p>
+						</div>
+						<div>
+							<a asp-action="Details" asp-route-id="@obj.Id" class="btn btn-primary bg-success border-0 form-control">
+								Детальніше
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+	}
+</div>
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}
