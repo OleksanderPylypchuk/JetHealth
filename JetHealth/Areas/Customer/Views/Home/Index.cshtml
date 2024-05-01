@@ -3,47 +3,6 @@
 <div class="text-center">
     <h1 class="display-4">Вітаємо!</h1>
 </div>
-<form method="post">
-	<h2 class="text-center p-3">Форма для подачі заявки</h2>
-	<div class="row p-3">
-		@if (User.Identity.IsAuthenticated)
-		{
-			<input asp-for="request.Name" hidden placeholder="@User.Identity.Name" />
-			<input asp-for="request.PhoneNumber" hidden />
-			<div>
-				<div class="form-floating mb-3">
-					<input asp-for="request.Content" class="form-control" autocomplete="off" />
-					<label asp-for="request.Content"></label>
-					<span asp-validation-for="request.Content" class="text-danger"></span>
-				</div>
-				<div class="col-md-3">
-					<button type="submit" class="btn btn-primary form-control">Надіслати</button>
-				</div>
-			</div>
-		}
-		else
-		{
-			<div class="form-floating mb-3 col-6">
-				<input asp-for="request.Name" class="form-control" autocomplete="off"/>
-				<label asp-for="request.Name"></label>
-				<span asp-validation-for="request.Name" class="text-danger"></span>
-			</div>
-			<div class="form-floating mb-3 col-6">
-				<input asp-for="request.PhoneNumber" class="form-control" autocomplete="off" />
-				<label asp-for="request.PhoneNumber"></label>
-				<span asp-validation-for="request.PhoneNumber" class="text-danger"></span>
-			</div>
-			<div class="form-floating mb-3">
-				<input asp-for="request.Content" class="form-control" autocomplete="off"/>
-				<label asp-for="request.Content"></label>
-				<span asp-validation-for="request.Content" class="text-danger"></span>
-			</div>
-			<div class="col-md-3">
-				<button type="submit" class="btn btn-primary form-control">Надіслати</button>
-			</div>
-		}
-	</div>
-</form>
 <h2 class="text-center p-3">Напрями лікування</h2>
 <div class="row pb-3">
 	@foreach (var obj in Model.Treatments)
@@ -76,6 +35,45 @@
 		</div>
 	}
 </div>
+<form method="post" class="bg-primary-subtle">
+	<h2 class="text-center p-3">Форма для подачі заявки</h2>
+	<div class="row p-3">
+		@if (User.Identity.IsAuthenticated)
+		{
+			<input asp-for="request.Name" hidden placeholder="@User.Identity.Name" />
+			<input asp-for="request.PhoneNumber" hidden />
+			<div class="form-floating col-6 mb-3">
+				<input asp-for="request.Content" class="form-control" autocomplete="off" />
+				<label asp-for="request.Content"></label>
+				<span asp-validation-for="request.Content" class="text-danger"></span>
+			</div>
+			<div class="col-6 col-md-3">
+				<button type="submit" class="btn btn-primary form-control">Надіслати</button>
+			</div>
+		}
+		else
+		{
+			<div class="form-floating mb-3 col-6">
+				<input asp-for="request.Name" class="form-control" autocomplete="off" />
+				<label asp-for="request.Name"></label>
+				<span asp-validation-for="request.Name" class="text-danger"></span>
+			</div>
+			<div class="form-floating mb-3 col-6">
+				<input asp-for="request.PhoneNumber" class="form-control" autocomplete="off" />
+				<label asp-for="request.PhoneNumber"></label>
+				<span asp-validation-for="request.PhoneNumber" class="text-danger"></span>
+			</div>
+			<div class="form-floating mb-3 col-6">
+				<input asp-for="request.Content" class="form-control" autocomplete="off" />
+				<label asp-for="request.Content"></label>
+				<span asp-validation-for="request.Content" class="text-danger"></span>
+			</div>
+			<div class="col-6 col-md-3">
+				<button type="submit" class="btn btn-primary form-control">Надіслати</button>
+			</div>
+		}
+	</div>
+</form>
 
 @section Scripts {
 	<partial name="_ValidationScriptsPartial" />

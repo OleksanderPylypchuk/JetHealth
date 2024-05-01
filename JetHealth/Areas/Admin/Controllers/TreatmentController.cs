@@ -7,6 +7,7 @@ using System.IO;
 using JetHealth.Models.ViewModels;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Identity;
 
 namespace JetHealth.Areas.Admin.Controllers
 {
@@ -16,48 +17,60 @@ namespace JetHealth.Areas.Admin.Controllers
 	{
 		private readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        public TreatmentController(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
+        private readonly UserManager<IdentityUser> _userManager;
+        public TreatmentController(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment, UserManager<IdentityUser> userManager)
         {
             _unitOfWork = unitOfWork;
             _webHostEnvironment = webHostEnvironment;
-
+            _userManager= userManager;
         }
         public async Task<IActionResult> Index()
 		{
-			List<Treatment> treatments =_unitOfWork.TreatmentRepository.GetAllAsync(includeProperties: "TreatmentImages,TreatmentDescription,TreatmentProcedures")
+			List<Treatment> treatments =_unitOfWork.TreatmentRepository.GetAllAsync(includeProperties: "TreatmentImages,TreatmentDescription,TreatmentProcedures,ApplicationUser")
                 .GetAwaiter().GetResult().ToList();
 			return View(treatments);
 		}
 		public async Task<IActionResult> Upsert(int? id)
 		{
-			Treatment treatment=new();
+			TreatmentVM treatment=new();
 
             if (id != null&&id!=0)
 			{
-                treatment = _unitOfWork.TreatmentRepository.GetAsync(u=>u.Id==id,includeProperties: "TreatmentImages,TreatmentDescription,TreatmentProcedures").GetAwaiter().GetResult();
+                treatment.Treatment = _unitOfWork.TreatmentRepository.GetAsync(u=>u.Id==id,includeProperties: "TreatmentImages,TreatmentDescription,TreatmentProcedures").GetAwaiter().GetResult();
             }
 			else
 			{
-                treatment = new Treatment()
+                treatment.Treatment = new Treatment()
 				{
                      TreatmentDescription = new(),
                      TreatmentImages = new(),
                      TreatmentProcedures = new()
                 };
 			}
+            var users = await _userManager.GetUsersInRoleAsync(SD.ROLEDoctor);
+            treatment.Users = users.Select(x => new SelectListItem
+            {
+                Text = x.Email,
+                Value = x.Id
+            });
 			return View(treatment);
 		}
 		[HttpPost]
-		public async Task<IActionResult> Upsert(Treatment treatment,List<IFormFile> files)
+		public async Task<IActionResult> Upsert(TreatmentVM treatmentVM,List<IFormFile> files)
 		{
 			if(ModelState.IsValid)
 			{
-                if (treatment.Id == 0)
+                Treatment treatment;
+                if (treatmentVM.Treatment.Id == 0)
                 {
-					await _unitOfWork.TreatmentRepository.AddAsync(treatment);
+					await _unitOfWork.TreatmentRepository.AddAsync(treatmentVM.Treatment);
                     _unitOfWork.Save();
-                    treatment = _unitOfWork.TreatmentRepository.GetLast();
+					treatment = _unitOfWork.TreatmentRepository.GetLast();
 
+                }
+                else
+                {
+					treatment = treatmentVM.Treatment;
                 }
                 var wwwRootPath=_webHostEnvironment.WebRootPath;
                 if(files != null)
@@ -120,13 +133,7 @@ namespace JetHealth.Areas.Admin.Controllers
             }
 			else
 			{
-                treatment = new()
-                {
-                    TreatmentDescription = new(),
-                    TreatmentImages = new(),
-                    TreatmentProcedures = new()
-                };
-				return View(treatment);
+				return View(treatmentVM);
             }
 		}
 		public async Task<IActionResult> Delete(int id)

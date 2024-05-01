@@ -1,30 +1,33 @@
-﻿@model Treatment
+﻿@model TreatmentVM
 
-<h1 class="text-center text-primary">@(Model.Id == 0 ? "Створити" : "Оновити") напрям лікування</h1>
+<h1 class="text-center text-primary">@(Model.Treatment.Id == 0 ? "Створити" : "Оновити") напрям лікування</h1>
 
 <form enctype="multipart/form-data" method="post">
 	<div class="row justify-content-center">
 		<div class="col-10">
-			<input asp-for="TreatmentDescriptionId" hidden/>
-			<input asp-for="Id" hidden />
-			<input asp-for="TreatmentProcedures" hidden />
+			<input asp-for="Treatment.TreatmentDescriptionId" hidden/>
+			<input asp-for="Treatment.Id" hidden />
+			<input asp-for="Treatment.TreatmentProcedures" hidden />
 			<div class="form-floating mb-3">
-				<input asp-for="TreatmentName" class="form-control" autocomplete="off" placeholder="" />
-				<label asp-for="TreatmentName"></label>
-				<span asp-validation-for="TreatmentName" class="text-danger"></span>
+				<input asp-for="Treatment.TreatmentName" class="form-control" autocomplete="off" placeholder="" />
+				<label asp-for="Treatment.TreatmentName"></label>
+				<span asp-validation-for="Treatment.TreatmentName" class="text-danger"></span>
 			</div>
 			<div class="form-floating mb-3">
-				<label asp-for="TreatmentDescription.Description">Опис напряму</label>
-				<textarea asp-for="TreatmentDescription.Description" placeholder=""></textarea>
+				<select asp-for="Treatment.ApplicationUserId" asp-items="@Model.Users" class="form-select"><option selected disabled>Оберіть лікаря</option></select>
+			</div>
+			<div class="form-floating mb-3">
+				<label asp-for="Treatment.TreatmentDescription.Description">Опис напряму</label>
+				<textarea asp-for="Treatment.TreatmentDescription.Description" placeholder=""></textarea>
 			</div>
 			<div class="form-floating mb-3">
 				<input type="file" name="files" class="form-control" multiple />
 			</div>
 			<div class="row">
-				<div class="col-6 col-md-3">
-					<button type="submit" class="btn btn-primary form-control">@(Model.Id == 0 ? "Створити" : "Оновити")</button>
+				<div class="col-6">
+					<button type="submit" class="btn btn-primary form-control">@(Model.Treatment.Id == 0 ? "Створити" : "Оновити")</button>
 				</div>
-				<div class="col-6 col-md-3">
+				<div class="col-6">
 					<a asp-controller="Treatment" asp-action="Index" class="btn btn-outline-secondary form-control">
 						Повернутись до списку
 					</a>
@@ -32,9 +35,9 @@
 			</div>
 		</div>
 		<div class="col-2">
-			@if (Model.TreatmentImages != null)
+			@if (Model.Treatment.TreatmentImages != null)
 			{
-				@foreach (var image in Model.TreatmentImages)
+				@foreach (var image in Model.Treatment.TreatmentImages)
 				{
 					<img src="@image.ImgUrl" width="175"
 						 style="border-radius:5px;border:1px" />

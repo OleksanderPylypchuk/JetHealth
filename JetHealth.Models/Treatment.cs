@@ -56,5 +56,9 @@ namespace JetHealth.Models
         public TDescription? TreatmentDescription { get; set; }
         [ValidateNever]
         public List<TProcedure> TreatmentProcedures { get; set; }
+        [ForeignKey("ApplicationUser")]
+        public string ApplicationUserId { get; set; }
+        [ValidateNever]
+        public ApplicationUser ApplicationUser { get; set; }
     }
 }

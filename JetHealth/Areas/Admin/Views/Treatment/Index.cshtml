@@ -24,6 +24,9 @@
 				<th class="text-center bg-primary text-white">
 					Кількість процедур
 				</th>
+				<th class="text-center bg-primary text-white">
+					Призначений лікар
+				</th>
 				<th class="text-center bg-primary"></th>
 			</tr>
 		</thead>
@@ -36,6 +39,12 @@
 					</td>
 					<td>
 						@obj.TreatmentProcedures.Count()
+					</td>
+					<td>
+						@if (obj.ApplicationUser != null)
+						{
+							@(obj.ApplicationUser.FirstName + "       " + obj.ApplicationUser.LastName)
+						}
 					</td>
 					<td>
 						<div class="w-75 btn-group" role="group">
