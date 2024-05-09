@@ -27,7 +27,7 @@ namespace JetHealth.Areas.Admin.Controllers
 			var users = await _unitOfWork.UserRepository.GetAllAsync();
 			return View(users);
 		}
-		public async Task<IActionResult> RoleManagement(string id)
+		public async Task<IActionResult> Update(string id)
 		{
 			UserVM userVM = new UserVM()
 			{
@@ -41,14 +41,23 @@ namespace JetHealth.Areas.Admin.Controllers
 			return View(userVM);
 		}
 		[HttpPost]
-		public async Task<IActionResult> RoleManagement(UserVM userVM)
+		public async Task<IActionResult> Update(UserVM userVM)
 		{
 			ApplicationUser user = await _unitOfWork.UserRepository.GetAsync(u => userVM.User.Id == u.Id);
 			string oldRole =_userManager.GetRolesAsync(user).GetAwaiter().GetResult().FirstOrDefault();
-			if (userVM.User.Role != oldRole)
+			if (!string.IsNullOrEmpty(userVM.User.Role) && userVM.User.Role != oldRole)
 			{
 				_userManager.RemoveFromRoleAsync(user, oldRole).GetAwaiter().GetResult();
 				_userManager.AddToRoleAsync(user, userVM.User.Role).GetAwaiter().GetResult();
+				TempData["success"] = "Успішно оновлено роль";
+			}
+			if (userVM.User.FirstName != user.FirstName||userVM.User.LastName!=user.LastName)
+			{
+				user.FirstName = userVM.User.FirstName;
+				user.LastName = userVM.User.LastName;
+				_unitOfWork.UserRepository.Update(user);
+				_unitOfWork.Save();
+				TempData["success"] = "Успішно оновлено дані";
 			}
 			return RedirectToAction("Index");
 		}
@@ -63,6 +72,7 @@ namespace JetHealth.Areas.Admin.Controllers
 			var user= await _unitOfWork.UserRepository.GetAsync(u=>u.Id ==id);
 			await _unitOfWork.UserRepository.DeleteAsync(user);
 			_unitOfWork.Save();
+			TempData["success"] = "Успішно видалено користувача";
 			return RedirectToAction("Index");
 		}
 	}

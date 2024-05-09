@@ -4,6 +4,7 @@ using JetHealth.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using JetHealth.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace JetHealth.Areas.Customer.Controllers
 {
@@ -12,11 +13,14 @@ namespace JetHealth.Areas.Customer.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly SignInManager<IdentityUser> _signInManager;
 
-        public HomeController(ILogger<HomeController> logger, IUnitOfWork unitOfWork)
+
+		public HomeController(ILogger<HomeController> logger, IUnitOfWork unitOfWork, SignInManager<IdentityUser> signInManager)
         {
             _logger = logger;
             _unitOfWork = unitOfWork;
+            _signInManager = signInManager;
         }
 
         public async Task<IActionResult> Index()
@@ -29,9 +33,16 @@ namespace JetHealth.Areas.Customer.Controllers
             };
             if (User.Identity.IsAuthenticated)
             {
-                var user = await _unitOfWork.UserRepository.GetAsync(u => u.Email == User.Identity.Name);
-                homeVM.request.PhoneNumber = user.PhoneNumber;
-                homeVM.request.Name = $"{user.FirstName} {user.LastName}";
+                try
+                {
+					var user = await _unitOfWork.UserRepository.GetAsync(u => u.Email == User.Identity.Name);
+					homeVM.request.PhoneNumber = user.PhoneNumber;
+					homeVM.request.Name = $"{user.FirstName} {user.LastName}";
+				}
+                catch
+                {
+                    await _signInManager.SignOutAsync();
+                }
             }
             return View(homeVM);
         }

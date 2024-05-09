@@ -10,13 +10,13 @@ namespace JetHealth.Models
         private string _name;
         [NotMapped]
         private string _phoneNumber;
-        [MinLength(1),MaxLength(20),DisplayName("Ваше ім'я")]
+        [MinLength(1),MaxLength(30),DisplayName("Ваше ім'я")]
         public override string Name 
         { 
             get { return _name; } 
             set
             {
-                if (string.IsNullOrEmpty(value) || value.Length > 20)
+                if (string.IsNullOrEmpty(value) || value.Length > 30)
                 {
                     throw new ArgumentException("Value is not acceptable");
                 }

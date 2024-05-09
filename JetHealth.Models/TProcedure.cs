@@ -11,6 +11,8 @@ namespace JetHealth.Models
         private int _id;
         [NotMapped]
         private int _treatmentid;
+        [NotMapped]
+        private double _price;
         public int Id
         {
             get { return _id; }
@@ -26,6 +28,20 @@ namespace JetHealth.Models
         public string Name { get; set; }
         [DisplayName("Процедура")]
         public string PDescription { get; set; }
+        [DisplayName("Ціна")]
+        public double Price { 
+            get {
+                return _price;
+
+			}
+            set {
+                if(value < 0)
+                {
+                    throw new ArgumentException("Value is not acceptable");
+                }
+                _price = value;
+            }
+        }
         [ForeignKey("Treatment")]
         public int TreatmentId
         {

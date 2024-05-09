@@ -58,34 +58,42 @@ namespace JetHealth.Areas.Admin.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Upsert(TreatmentVM treatmentVM,List<IFormFile> files)
 		{
-			if(ModelState.IsValid)
-			{
+            if (ModelState.IsValid)
+            {
+                string result;
                 Treatment treatment;
                 if (treatmentVM.Treatment.Id == 0)
                 {
-					await _unitOfWork.TreatmentRepository.AddAsync(treatmentVM.Treatment);
+                    await _unitOfWork.TreatmentRepository.AddAsync(treatmentVM.Treatment);
                     _unitOfWork.Save();
-					treatment = _unitOfWork.TreatmentRepository.GetLast();
-
+                    treatment = _unitOfWork.TreatmentRepository.GetLast();
+                    result = "Cтворено новий напрям";
                 }
                 else
                 {
-					treatment = treatmentVM.Treatment;
+                    treatment = treatmentVM.Treatment;
+                    result = "Оновлено напрям";
                 }
-                var wwwRootPath=_webHostEnvironment.WebRootPath;
-                if(files != null)
+                var wwwRootPath = _webHostEnvironment.WebRootPath;
+                if (files != null)
                 {
-                    foreach(IFormFile file in files)
+                    foreach (IFormFile file in files)
                     {
-                        string filename=Guid.NewGuid().ToString()+Path.GetExtension(file.FileName);
-                        string treatmentPath= @"images\treatment\treatment-" + treatment.Id;
-                        string finalPath=Path.Combine(wwwRootPath, treatmentPath);
+                        string extension = Path.GetExtension(file.FileName);
 
-                        if(!Directory.Exists(finalPath))
+                        if (extension != ".jpg" && extension != ".png" && extension != ".jpeg")
+                        {
+                            continue;
+                        }
+                        string filename = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                        string treatmentPath = @"images\treatment\treatment-" + treatment.Id;
+                        string finalPath = Path.Combine(wwwRootPath, treatmentPath);
+
+                        if (!Directory.Exists(finalPath))
                         {
                             Directory.CreateDirectory(finalPath);
                         }
-                        using(var filestream = new FileStream(Path.Combine(finalPath, filename), FileMode.Create))
+                        using (var filestream = new FileStream(Path.Combine(finalPath, filename), FileMode.Create))
 
                         {
                             file.CopyTo(filestream);
@@ -109,30 +117,36 @@ namespace JetHealth.Areas.Admin.Controllers
 
                 if (treatment.TreatmentDescription.Id != 0)
                 {
-					var description = treatment.TreatmentDescription;
-					description.TreatmentId = treatment.Id;
-					_unitOfWork.DescriptionRepository.Update(description);
-					_unitOfWork.Save();
-					treatment.TreatmentDescriptionId = description.Id;
-				}
+                    var description = treatment.TreatmentDescription;
+                    description.TreatmentId = treatment.Id;
+                    _unitOfWork.DescriptionRepository.Update(description);
+                    _unitOfWork.Save();
+                    treatment.TreatmentDescriptionId = description.Id;
+                }
                 else
                 {
-                    var description = await _unitOfWork.DescriptionRepository.GetAsync(u=>u.TreatmentId==treatment.Id);
+                    var description = await _unitOfWork.DescriptionRepository.GetAsync(u => u.TreatmentId == treatment.Id);
                     if (description.Description != treatment.TreatmentDescription.Description)
                     {
-                        description.Description= treatment.TreatmentDescription.Description;
-                       
-					}
-					treatment.TreatmentDescription = description;
-				}
-                
+                        description.Description = treatment.TreatmentDescription.Description;
+
+                    }
+                    treatment.TreatmentDescription = description;
+                }
+
                 _unitOfWork.TreatmentRepository.Update(treatment);
                 _unitOfWork.Save();
-                return RedirectToAction("Index");
-                
+                TempData["success"] = result;
+                return RedirectToAction("Index"); 
             }
 			else
 			{
+				var users = await _userManager.GetUsersInRoleAsync(SD.ROLEDoctor);
+				treatmentVM.Users = users.Select(x => new SelectListItem
+				{
+					Text = x.Email,
+					Value = x.Id
+				});
 				return View(treatmentVM);
             }
 		}
@@ -158,6 +172,7 @@ namespace JetHealth.Areas.Admin.Controllers
 			_unitOfWork.Save();
 			await _unitOfWork.TreatmentRepository.DeleteAsync(treatment);
 			_unitOfWork.Save();
+            TempData["success"] = "Успішно видалено напрям";
 			return RedirectToAction("Index");
         }
         public async Task<IActionResult> UpsertTProcedure(int? id)

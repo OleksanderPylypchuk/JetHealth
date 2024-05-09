@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace JetHealth.Models
 {
@@ -32,7 +33,7 @@ namespace JetHealth.Models
                 _lastName = value;
             }
         }
-		[NotMapped]
-		public string Role { get; set; }
+		[NotMapped,ValidateNever]
+		public string? Role { get; set; }
 	}
 }

@@ -98,11 +98,11 @@ namespace JetHealth.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
-            [Required]
+            [Required, MinLength(1), MaxLength(15)]
             public string? FirstName { get; set; }
-            [Required]
+            [Required, MinLength(1), MaxLength(15)]
             public string? LastName { get; set; }
-            [Required]
+            [Required, MinLength(1), MaxLength(13)]
             public string? PhoneNumber { get; set; }
             public string? Role { get; set; }
             [ValidateNever]
@@ -169,7 +169,7 @@ namespace JetHealth.Areas.Identity.Pages.Account
 
                     if (User.IsInRole(SD.ROLEAdmin))
                     {
-                        TempData["success"] = "User created successfuly";
+                        TempData["success"] = "Успішно створено користувача";
                     }
                     else
                     {

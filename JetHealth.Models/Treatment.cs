@@ -31,7 +31,7 @@ namespace JetHealth.Models
             get { return _treatmentname; }
             set
             {
-                if (string.IsNullOrEmpty(value) || value.Length > 15)
+                if (string.IsNullOrEmpty(value) || value.Length > 20)
                 {
                     throw new ArgumentException("Value is not acceptable");
                 }

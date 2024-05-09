@@ -21,7 +21,7 @@ namespace JetHealth.Models.Abstract
                 _id = value;
             }
         }
-        [DisplayName("Коментар")]
+        [DisplayName("Коментар"),Length(0,100)]
         public string? Content { get; set; }
         public abstract string? Name { get; set; }
     }

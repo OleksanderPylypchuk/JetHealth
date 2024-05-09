@@ -8,6 +8,11 @@
 		<span asp-validation-for="Name" class="text-danger"></span>
 	</div>
 	<div class="form-floating mb-3">
+		<input asp-for="Price" step="0.01" class="form-control" autocomplete="off" placeholder="" />
+		<label asp-for="Price"></label>
+		<span asp-validation-for="Price" class="text-danger"></span>
+	</div>
+	<div class="form-floating mb-3">
 		<label asp-for="PDescription">Опис напряму</label>
 		<textarea asp-for="PDescription" placeholder=""></textarea>
 	</div>

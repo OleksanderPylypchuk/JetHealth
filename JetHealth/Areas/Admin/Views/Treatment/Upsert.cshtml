@@ -1,7 +1,7 @@
 ﻿@model TreatmentVM
 
 <h1 class="text-center text-primary">@(Model.Treatment.Id == 0 ? "Створити" : "Оновити") напрям лікування</h1>
-
+<partial name="_Notification" />
 <form enctype="multipart/form-data" method="post">
 	<div class="row justify-content-center">
 		<div class="col-10">
@@ -15,10 +15,12 @@
 			</div>
 			<div class="form-floating mb-3">
 				<select asp-for="Treatment.ApplicationUserId" asp-items="@Model.Users" class="form-select"><option selected disabled>Оберіть лікаря</option></select>
+				<span asp-validation-for="Treatment.ApplicationUserId" class="text-danger"></span>
 			</div>
 			<div class="form-floating mb-3">
 				<label asp-for="Treatment.TreatmentDescription.Description">Опис напряму</label>
 				<textarea asp-for="Treatment.TreatmentDescription.Description" placeholder=""></textarea>
+				<span asp-validation-for="Treatment.TreatmentDescription.Description" class="text-danger"></span>
 			</div>
 			<div class="form-floating mb-3">
 				<input type="file" name="files" class="form-control" multiple />
