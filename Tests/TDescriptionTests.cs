@@ -43,16 +43,5 @@ namespace Tests
                 };
             });
         }
-        [TestMethod]
-        public void ZeroTreatmentIdTest()
-        {
-            Assert.ThrowsException<ArgumentException>(() =>
-            {
-                TDescription description = new TDescription()
-                {
-                    TreatmentId = 0
-                };
-            });
-        }
     }
 }

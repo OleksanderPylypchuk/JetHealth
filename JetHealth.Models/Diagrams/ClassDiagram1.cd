@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="JetHealth.Models.ApplicationUser">
+    <Position X="7.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAEAAAAAAAAAAEAEAAAAAAAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>ApplicationUser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JetHealth.Models.Request">
+    <Position X="11.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABIAAAAAAAAAAAAAAAQAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Request.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JetHealth.Models.Review">
+    <Position X="9.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAAAAAAAAAQAAAAAAAEAAAAAAAAAAIA=</HashCode>
+      <FileName>Review.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JetHealth.Models.TDescription">
+    <Position X="7" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAICAAAAAAAgAAQAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TDescription.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JetHealth.Models.TImage">
+    <Position X="4.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAICAAAAAAAAAAQAAABAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TImage.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Treatment" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="JetHealth.Models.TProcedure">
+    <Position X="1.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgKCAAAAAQAAAAQAAABAAAQAAAAAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>TProcedure.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Treatment" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="JetHealth.Models.Treatment">
+    <Position X="5" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>CAACAAAAAAAAIgCQAABQAEAAAAAAAACAAAAAAAAAAAE=</HashCode>
+      <FileName>Treatment.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="TreatmentDescription" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="TreatmentImages" />
+      <Property Name="TreatmentProcedures" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="JetHealth.Models.Abstract.Message">
+    <Position X="10.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAgAAAAAAAABAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Abstract\Message.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

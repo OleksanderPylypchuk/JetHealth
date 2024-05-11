@@ -209,7 +209,12 @@ namespace JetHealth.Areas.Admin.Controllers
                 _unitOfWork.Save();
                 return RedirectToAction("Index");
             }
-            return View(procedure);
+			procedure.Treatments = (await _unitOfWork.TreatmentRepository.GetAllAsync()).Select(x => new SelectListItem()
+			{
+				Text = x.TreatmentName,
+				Value = x.Id.ToString()
+			});
+			return View(procedure);
 
 		}
 

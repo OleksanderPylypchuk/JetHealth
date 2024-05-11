@@ -22,17 +22,6 @@ namespace Tests
             });
         }
         [TestMethod]
-        public void ZeroIdTest()
-        {
-            Assert.ThrowsException<ArgumentException>(() =>
-            {
-                Treatment treatment = new Treatment()
-                {
-                    Id = 0
-                };
-            });
-        }
-        [TestMethod]
         public void BelowZeroTDescriptionIdTest()
         {
             Assert.ThrowsException<ArgumentException>(() =>

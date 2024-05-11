@@ -50,8 +50,8 @@ namespace Tests
             {
                 Request request = new Request()
                 {
-                    Name = "asfawsfasfafsfasfasfasfas"
-                };
+                    Name = "asfawsfasfafsfasfasfasfasasfawsfasfafsfasfasfasfas"
+				};
             });
         }
         [TestMethod]

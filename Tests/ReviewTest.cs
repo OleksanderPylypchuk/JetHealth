@@ -72,8 +72,8 @@ namespace Tests
             {
                 Review review = new Review()
                 {
-                    Name = "asfawsfasfafsfasfasfasfas"
-                };
+                    Name = "asfawsfasfafsfasfasfasfasasfawsfasfafsfasfasfasfas"
+				};
             });
         }
     }

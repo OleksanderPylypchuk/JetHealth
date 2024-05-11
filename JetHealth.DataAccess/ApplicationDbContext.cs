@@ -7,7 +7,8 @@ namespace JetHealth.Data.DBContext
 {
     public class ApplicationDbContext: IdentityDbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+            : base(options)
         {
 
         }
@@ -15,7 +16,6 @@ namespace JetHealth.Data.DBContext
         public DbSet<TImage> Images { get; set; }
         public DbSet<TDescription> TDescriptions { get; set; }
         public DbSet<TProcedure> Procedures { get; set; }
-        public DbSet<ApplicationUser> Users {  get; set; }
         public DbSet<Request> Requests { get; set; }
         public DbSet<Review> Reviews { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)

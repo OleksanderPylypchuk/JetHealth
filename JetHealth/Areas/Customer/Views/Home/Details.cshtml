@@ -9,7 +9,10 @@
 			<br /><br /> @Html.Raw(Model.TreatmentDescription.Description)
 			@foreach(var item in Model.TreatmentProcedures)
 			{
+				<h1 class="text-center">@item.Name</h1>
 				<p> @Html.Raw(item.PDescription)</p>
+
+				<h2 class="text-warning text-end">@item.Price.ToString("C")</h2>
 			}
 			<div class="m-4 row">
 				<div class="col-6 ">
